@@ -94,3 +94,54 @@ For mixed Mode DLL, see my other github repo:
 - https://github.com/bao7uo/MixedUp
 
 Special thanks to [@irsdl]( https://github.com/irsdl ) who inspired the custom payload feature.
+
+## Dockerized container
+
+With docker installed, run the following commands to set up and use the tool straight away
+
+```
+╭─root@kali ~/Documents/tool/Telerik/RAU_crypto ‹master*› 
+╰─# ./install.sh 
+Sending build context to Docker daemon  297.5kB
+Step 1/5 : FROM python
+ ---> f88b2f81f83a
+Step 2/5 : RUN pip3 install pycryptodome
+ ---> Using cache
+ ---> 845ef32136a1
+Step 3/5 : RUN pip3 install requests
+ ---> Using cache
+ ---> 4e315dcb2bfd
+Step 4/5 : COPY ./ /opt/RAU_crypto/
+ ---> d6432b83d35c
+Step 5/5 : WORKDIR /opt/RAU_crypto/
+ ---> Running in 0f0e917b61db
+Removing intermediate container 0f0e917b61db
+ ---> 61e0c1924624
+Successfully built 61e0c1924624
+Successfully tagged rau_crypto-docker:latest
+╭─root@kali ~/Documents/tool/Telerik/RAU_crypto ‹master*› 
+╰─# ./rau_crypto.sh
+
+RAU_crypto by Paul Taylor / @bao7uo 
+CVE-2017-11317, CVE-2019-18935 - Telerik RadAsyncUpload hardcoded keys / arbitrary file upload / .NET deserialisation
+
+Usage:
+
+Decrypt a ciphertext:               -d ciphertext
+Decrypt rauPostData:                -D rauPostData
+Encrypt a plaintext:                -e plaintext
+
+Generate file upload rauPostData:   -E c:\\destination\\folder Version
+Generate all file upload POST data: -p c:\\destination\\folder Version ../local/filename
+Upload file:                        -P c:\\destination\\folder Version c:\\local\\filename url [proxy]
+
+Generate custom payload POST data : -c partA partB
+Send custom payload:                -C partA partB url [proxy]
+
+Example URL:               http://target/Telerik.Web.UI.WebResource.axd?type=rau
+Example Version:           2016.2.504
+Example optional proxy:    127.0.0.1:8080
+
+N.B. Advanced settings e.g. custom keys or PBKDB algorithm can be found by searching source code for: ADVANCED_SETTINGS
+```
+
